@@ -1,5 +1,14 @@
-"""Pure structural edit operations.
+"""Pure structural edit operations for immutable assembly documents."""
 
-Move, break, split, join, and reverse operations will be added here without
-coupling them to file I/O.
-"""
+from .move import MoveOrder, MoveOutcome, move_components
+from .selectors import Ref, RefKind, Target, TargetKind
+
+__all__ = [
+    "MoveOrder",
+    "MoveOutcome",
+    "Ref",
+    "RefKind",
+    "Target",
+    "TargetKind",
+    "move_components",
+]

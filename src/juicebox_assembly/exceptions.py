@@ -75,6 +75,12 @@ class AssemblyWriteError(AssemblyError):
     code = "E_WRITE"
 
 
+class AssemblyEditError(AssemblyError):
+    """Raised when a structural edit cannot be applied safely."""
+
+    code = "E_EDIT"
+
+
 class ComponentNotFound(AssemblyError):
     """Raised when a component key or name cannot be resolved."""
 

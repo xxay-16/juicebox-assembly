@@ -11,9 +11,10 @@
 - 文件结构及 Juicebox 兼容性校验；
 - 规范化 UTF-8 序列化；
 - 原子文件写入；
-- assembly 基础统计指标。
+- assembly 基础统计指标；
+- 将指定组件事务式移动到末尾独立分块。
 
-移动、截断、拆分、合并和反向等编辑操作将在此基础上逐步实现。
+分块移动、截断、拆分、合并和反向等编辑操作将在此基础上逐步实现。
 
 ## 安装
 
@@ -61,6 +62,39 @@ document = AssemblyFile.load("input.assembly", strict=False)
 canonical_text = AssemblyFile.dumps(document)
 ~~~
 
+## 移动组件
+
+使用显式 selector，避免混淆组件名称、源文件序列化 ID 和 SDK 内部稳定 key：
+
+~~~python
+from juicebox_assembly import Ref, Target
+
+refs = [
+    Ref.name("ptg000123l"),
+    Ref.serial_id(145),
+]
+
+result = (
+    AssemblyFile.edit(document)
+    .move_components(
+        refs,
+        target=Target.last_new_block(),
+        order="input",
+    )
+    .commit()
+)
+
+print(result.validation.is_valid)
+print(dict(result.id_map))
+
+AssemblyFile.dump(
+    result.document,
+    "genome.review.moved.assembly",
+)
+~~~
+
+默认的 `order="input"` 保留 selector 输入顺序；使用 `order="assembly"` 可以保留组件在源 assembly 中的顺序。移动时会保留原方向。从分块中间抽取组件后，剩余 placement 会按连续区间拆成多个分块，不会凭空建立新的邻接关系。
+
 ## 文件模型
 
 Juicebox `.assembly` 文件由两部分组成：
@@ -79,8 +113,8 @@ src/juicebox_assembly/
 ├── model/               不可变领域对象
 ├── formats/juicebox/    解析器、ID 分配器和规范化写入器
 ├── validation/          校验规则、统计指标和结构化报告
-├── operations/          结构编辑操作（下一阶段）
-├── history/             事务与变更记录（下一阶段）
+├── operations/          显式 selector 和纯组件移动操作
+├── history/             事务式编辑器和可审计变更记录
 ├── exceptions.py        稳定的公共异常
 └── sdk.py               Python SDK 公共入口
 ~~~
@@ -105,4 +139,4 @@ python -m build
 
 ## 当前范围
 
-当前版本适合用作 `.assembly` 文件的安全解析、检查、统计和规范化写出基础组件。移动、截断、拆分、合并、撤销和变更审计等 API 尚未完成，不建议依赖占位模块构建生产流程。
+当前版本适合用作 `.assembly` 文件的安全解析、检查、统计、规范化写出，以及将指定组件移动到末尾独立分块。分块移动、截断、拆分、合并和撤销等 API 尚未完成，不建议依赖占位模块构建生产流程。

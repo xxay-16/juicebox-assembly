@@ -6,7 +6,7 @@ import tempfile
 from pathlib import Path
 
 from ...exceptions import AssemblyValidationError, AssemblyWriteError
-from ...model import AssemblyDocument, Orientation
+from ...model import AssemblyDocument
 from ...validation import validate
 from .id_allocator import allocate_serial_ids
 

@@ -1,6 +1,6 @@
 # Juicebox Assembly Python SDK 设计
 
-状态：框架设计稿，暂未开始实现。
+状态：基础解析、校验、规范化写入和首个 `move_components` 编辑闭环已实现；其余操作仍为设计稿。
 
 ## 1. 目标
 

@@ -11,9 +11,10 @@ This repository currently contains the foundational v0.1 core:
 - structural and Juicebox compatibility validation;
 - canonical UTF-8 serialization;
 - atomic file writes;
-- assembly statistics.
+- assembly statistics;
+- transactional component moves into a new final block.
 
-Move, split, break, join, and reverse operations will be built on this core.
+Block moves, split, break, join, and reverse operations will be built on this core.
 
 ## Quick start
 
@@ -42,6 +43,42 @@ document = AssemblyFile.load("input.assembly", strict=False)
 canonical_text = AssemblyFile.dumps(document)
 ~~~
 
+## Move components
+
+Use explicit selectors so names, source serial IDs, and stable in-memory keys cannot be confused:
+
+~~~python
+from juicebox_assembly import Ref, Target
+
+refs = [
+    Ref.name("ptg000123l"),
+    Ref.serial_id(145),
+]
+
+result = (
+    AssemblyFile.edit(document)
+    .move_components(
+        refs,
+        target=Target.last_new_block(),
+        order="input",
+    )
+    .commit()
+)
+
+print(result.validation.is_valid)
+print(dict(result.id_map))
+
+AssemblyFile.dump(
+    result.document,
+    "genome.review.moved.assembly",
+)
+~~~
+
+The default `order="input"` preserves selector order. Use `order="assembly"` to retain the
+components' order in the source assembly. Existing orientations are preserved. When a component is
+extracted from the middle of a block, the remaining placements are split into contiguous runs so
+the edit does not invent a new adjacency.
+
 The SDK treats body lines as assembly blocks or superscaffolds, not automatically as validated
 biological chromosomes. It does not modify .hic files or nucleotide sequences.
 
@@ -52,8 +89,8 @@ src/juicebox_assembly/
 |-- model/               Immutable domain entities
 |-- formats/juicebox/    Parser, ID allocator, and canonical writer
 |-- validation/          Rules, metrics, and structured reports
-|-- operations/          Pure structural edits (next milestone)
-|-- history/             Transactions and change sets (next milestone)
+|-- operations/          Explicit selectors and pure component moves
+|-- history/             Transaction editor and auditable change sets
 |-- exceptions.py        Stable package exceptions
 +-- sdk.py               Public facade
 ~~~

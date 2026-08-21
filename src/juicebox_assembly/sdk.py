@@ -3,12 +3,17 @@ from __future__ import annotations
 from pathlib import Path
 
 from .formats.juicebox import dump, dumps, load, loads
+from .history import AssemblyEditor
 from .model import AssemblyDocument
 from .validation import ValidationReport, validate
 
 
 class AssemblyFile:
     """Stable facade for the foundational Python SDK."""
+
+    @staticmethod
+    def edit(document: AssemblyDocument) -> AssemblyEditor:
+        return AssemblyEditor(document)
 
     @staticmethod
     def load(path: str | Path, *, strict: bool = True) -> AssemblyDocument:

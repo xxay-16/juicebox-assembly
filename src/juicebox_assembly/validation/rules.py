@@ -140,8 +140,8 @@ def validate(
         block_size = 0
         for placement in block.placements:
             placement_counts[placement.component] += 1
-            component = component_map.get(placement.component)
-            if component is None:
+            referenced_component = component_map.get(placement.component)
+            if referenced_component is None:
                 issues.append(
                     _error(
                         "E_UNDEFINED_REFERENCE",
@@ -151,7 +151,7 @@ def validate(
                     )
                 )
             else:
-                block_size += component.length
+                block_size += referenced_component.length
 
             if placement.orientation is Orientation.FORWARD:
                 forward += 1
