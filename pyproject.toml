@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "juicebox-assembly"
+version = "0.1.0"
+description = "Typed Python SDK for parsing, validating, and editing Juicebox/3D-DNA assembly files"
+readme = "README.md"
+requires-python = ">=3.10"
+keywords = ["bioinformatics", "genome-assembly", "hic", "juicebox", "3d-dna"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Science/Research",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Scientific/Engineering :: Bio-Informatics",
+]
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+  "build>=1.2",
+  "mypy>=1.10",
+  "pytest>=8",
+  "ruff>=0.5",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["juicebox_assembly*"]
+
+[tool.setuptools.package-data]
+juicebox_assembly = ["py.typed"]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+packages = ["juicebox_assembly"]
+mypy_path = "src"
