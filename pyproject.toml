@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=68"]
+requires = ["setuptools>=77.0.3"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -7,6 +7,8 @@ name = "juicebox-assembly"
 version = "0.1.0"
 description = "Typed Python SDK for parsing, validating, and editing Juicebox/3D-DNA assembly files"
 readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
 requires-python = ">=3.10"
 keywords = ["bioinformatics", "genome-assembly", "hic", "juicebox", "3d-dna"]
 classifiers = [

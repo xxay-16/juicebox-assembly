@@ -121,6 +121,14 @@ src/juicebox_assembly/
 
 详细设计参见 [架构文档](docs/architecture.md)。
 
+## 项目关系
+
+这是一个独立的非官方兼容性项目，与 Aiden Lab、Juicebox 或 3D-DNA 项目不存在隶属或官方认可关系。相关产品和项目名称归各自权利人所有。
+
+## 许可证
+
+本项目使用 [MIT License](LICENSE)。
+
 ## 开发与测试
 
 从源码目录运行测试：

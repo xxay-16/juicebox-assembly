@@ -97,6 +97,16 @@ src/juicebox_assembly/
 
 Architecture details are in docs/architecture.md.
 
+## Project relationship
+
+This is an independent, unofficial interoperability project. It is not affiliated with or
+endorsed by Aiden Lab or the Juicebox/3D-DNA projects. Product and project names belong to their
+respective owners.
+
+## License
+
+Released under the [MIT License](LICENSE).
+
 ## Development
 
 The base test suite uses the Python standard library:
