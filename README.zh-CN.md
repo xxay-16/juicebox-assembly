@@ -119,7 +119,7 @@ src/juicebox_assembly/
 └── sdk.py               Python SDK 公共入口
 ~~~
 
-详细设计参见 [架构文档](docs/architecture.md)。
+详细设计参见 [架构文档](docs/architecture.md)，可直接运行的使用配方参见 [Cookbook](docs/cookbook.md)。
 
 ## 项目关系
 

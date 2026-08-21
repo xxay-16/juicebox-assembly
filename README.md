@@ -95,7 +95,8 @@ src/juicebox_assembly/
 +-- sdk.py               Public facade
 ~~~
 
-Architecture details are in docs/architecture.md.
+Architecture details are in docs/architecture.md. Practical recipes are in the
+[Chinese Cookbook](docs/cookbook.md).
 
 ## Project relationship
 
