@@ -1,5 +1,7 @@
 # juicebox-assembly
 
+[简体中文](README.zh-CN.md) | English
+
 A typed Python SDK for Juicebox/3D-DNA .assembly files.
 
 This repository currently contains the foundational v0.1 core:
